@@ -1,1 +1,6 @@
 /terraform/terraform.tfvars
+/terraform/exo_config
+/terraform/terraform.tfstate
+/terraform/terraform.tfstate.backup
+/terraform/.terraform/
+/terraform/.terraform.lock.hcl

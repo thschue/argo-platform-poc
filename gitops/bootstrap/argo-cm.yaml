@@ -6,6 +6,8 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 data:
   resource.customizations.useOpenLibs.argoproj.io_Application: "true"
   resource.customizations.health.argoproj.io_Application: | # see https://argo-cd.readthedocs.io/en/stable/operator-manual/health/#argocd-app

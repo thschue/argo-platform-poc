@@ -1,67 +1,21 @@
 ---
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
-  name: app-generator-platform
+  name: platform
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
 spec:
-  generators:
-    - git:
-        repoURL: https://github.com/thschue/argo-platform-poc
-        revision: main
-        directories:
-          - path: gitops/platform/*
-  template:
-    metadata:
-      name: '{{path.basename}}'
-    spec:
-      project: default
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-      source:
-        repoURL: https://github.com/thschue/argo-platform-poc
-        targetRevision: main
-        path: '{{path}}'
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: app-generator-myapp
-  namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
-spec:
-  generators:
-    - git:
-        repoURL: https://github.com/thschue/argo-platform-poc
-        revision: main
-        directories:
-          - path: gitops/app/*
-  template:
-    metadata:
-      name: '{{path.basename}}'
-    spec:
-      project: default
-      syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
-      source:
-        repoURL: https://github.com/thschue/argo-platform-poc
-        targetRevision: main
-        path: '{{path}}'
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
+  project: default
+  source:
+    repoURL: https://github.com/thschue/argo-platform-poc
+    targetRevision: main
+    path: gitops/platform
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
